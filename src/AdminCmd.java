@@ -11,7 +11,7 @@ public class AdminCmd extends Plugin {
     public void init() { sh = arc.Core.app.getListeners().find(l -> l.getClass().getSimpleName().equals("ServerControl")) instanceof Object c ? Reflect.get(c, "handler") : null;}
     @Override
     public void registerClientCommands(CommandHandler h) {
-        h.register("p", "Toggle pause", (String[] a, Player p) -> { if(p.admin) Vars.state.set(Vars.state.is(GameState.State.paused) ? GameState.State.playing : GameState.State.paused); });
+        h.register("p", "Toggle pause", (String[] a, Player p) -> { if (p.admin) Vars.state.set(Vars.state.is(GameState.State.paused) ? GameState.State.playing : GameState.State.paused); });
         h.register("m", "<name...>", "Change map or /m l", (String[] a, Player p) -> {
             if (!p.admin) return;
             if (a[0].equalsIgnoreCase("l")) {
