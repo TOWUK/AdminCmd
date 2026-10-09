@@ -1,6 +1,5 @@
 import arc.Events;
 import arc.util.CommandHandler;
-import arc.util.Strings;
 import mindustry.Vars;
 import mindustry.core.GameState;
 import mindustry.game.EventType.GameOverEvent;
@@ -13,11 +12,10 @@ public class ACMD extends Plugin {
         h.<Player>register("m", "[name...]", "Смена карты, /m — список", (a, p) -> {
             if(!p.admin || Vars.state.isMenu()) return;
             var all = Vars.maps.customMaps();
-            if(a.length == 0 || a[0].equalsIgnoreCase("l")){ StringBuilder sb = new StringBuilder("Карты:\n"); for(int i = 0; i < all.size; i++) sb.append(i + 1).append(". ").append(all.get(i).plainName()).append('\n'); p.sendMessage(sb.toString()); return; }
-            Map map = null; if(Strings.canParseInt(a[0])){ int n = Strings.parseInt(a[0], 0) - 1; if(n >= 0 && n < all.size) map = all.get(n); }
-            if(map == null){ String q = a[0].toLowerCase(); map = all.find(m -> m.plainName().toLowerCase().contains(q)); }
-            if(map == null){ p.sendMessage("[scarlet]Карта не найдена. /m — список."); return; }
-            p.sendMessage("[accent]Смена на: [white]" + map.plainName());
+            if(a.length == 0){ StringBuilder sb = new StringBuilder("Карты:\n"); for(int i = 0; i < all.size; i++) sb.append(i + 1).append(". ").append(all.get(i).plainName()).append('\n'); p.sendMessage(sb.toString()); return; }
+            String q = a[0].toLowerCase();
+            Map map = all.find(m -> m.plainName().toLowerCase().contains(q));
+            if(map == null){ p.sendMessage("[scarlet]Карта не найдена."); return; }
             Vars.maps.setNextMapOverride(map);
             Events.fire(new GameOverEvent(Vars.state.rules.waveTeam));
         });
