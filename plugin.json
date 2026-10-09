@@ -1,8 +1,0 @@
-{
-  "displayName": "AdminCmd",
-  "name": "AdminCmd",
-  "author": "TOWUK",
-  "main": "AdminCmd",
-  "description": "Админ команды.",
-  "version": "1.0"
-}
